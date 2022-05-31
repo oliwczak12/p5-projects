@@ -8,8 +8,6 @@ let j_y = 0.5;
 let top_offset = 50;
 
 
-
-
 function preload() {
   img = loadImage('cube.png');
 }
