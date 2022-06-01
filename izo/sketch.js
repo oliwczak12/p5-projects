@@ -8,15 +8,13 @@ let j_y = 0.5;
 let top_offset = 50;
 
 
-
-
 function preload() {
   img = loadImage('cube.png');
 }
 
 function setup() {
-	createCanvas(windowWidth*0.8,windowHeight*0.8);
-	tileSize = width*0.8 / tiles;
+	createCanvas(500, 400);
+	tileSize = width / tiles;
 	// put setup code here
 }
 
@@ -66,14 +64,14 @@ function draw() {
 		  if(
 			Math.round(grid_cords(mouseX-width/2,mouseY-top_offset-tileSize/4).x)===i &&
 		    Math.round(grid_cords(mouseX-width/2,mouseY-top_offset-tileSize/4).y)===j){
-			  image(img,sCords.x,sCords.y-10,tileSize,tileSize);
+			  image(img,sCords.x,sCords.y-7,tileSize,tileSize);
 		  }
 		  else{
 			image(img,sCords.x,sCords.y,tileSize,tileSize);
 		  }
+		  //text(`${i}, ${j}`, sCords.x+40,sCords.y+20);
 		}
 	  }
-	//console.log(grid_cords(mouseX-width/2,mouseY-tileSize/4));
 	}
 	
 
