@@ -1,77 +1,88 @@
-let img;
-let tiles = 10;
-let tileSize;
-let i_x = 1;
-let i_y = 0.5;
-let j_x = -1;
-let j_y = 0.5;
-let top_offset = 50;
+let sketch = function(p) {
+	 p.img;
+	 p.tiles = 10;
+	 p.tileSize;
+	 p.i_x = 1;
+	 p.i_y = 0.5;
+	 p.j_x = -1;
+	 p.j_y = 0.5;
+	 p.top_offset = 50;
 
-
-function preload() {
-  img = loadImage('cube.png');
-}
-
-function setup() {
-	createCanvas(windowWidth*0.8,windowHeight*0.8);
-	tileSize = width*0.8 / tiles;
-	// put setup code here
-}
-
-function screen_cords(i,j) {
-	return{
-		x:i*tileSize*i_x*0.5+j*tileSize*j_x * 0.5,
-		y:i*tileSize*i_y*0.5+j*tileSize*j_y * 0.5,
+	p.preload = function() {
+		p.img = p.loadImage('cube.png');
+	}
+	p.setup = function() {
+		p.createCanvas(500,400);
+		p.tileSize = p.width / p.tiles;
 	};
-}
 
-function m_invert(a,b,c,d) {
-	let det = (1 / (a * d - b * c));
-	return {
-		a: det * d,
-		b: det * -b,
-		c: det * -c,
-		d: det * a,
-	  };
-}
+	p.screen_cords = function(i,j) {
+		return{
+			x:i*p.tileSize*p.i_x*0.5+j*p.tileSize*p.j_x * 0.5,
+			y:i*p.tileSize*p.i_y*0.5+j*p.tileSize*p.j_y * 0.5,
+		};
+	}
 
-function grid_cords(sX,sY) {
-  let a = tileSize*i_x * 0.5;
-  let b = tileSize*j_x * 0.5;
-  let c = tileSize*i_y * 0.5;
-  let d = tileSize*j_y * 0.5;
+	p.m_invert = function(a,b,c,d) {
+		let det = (1 / (a * d - b * c));
+		return {
+			a: det * d,
+			b: det * -b,
+			c: det * -c,
+			d: det * a,
+		  };
+	}
+
+	p.grid_cords = function(sX,sY) {
+		let a = p.tileSize*p.i_x * 0.5;
+  		let b = p.tileSize*p.j_x * 0.5;
+  		let c = p.tileSize*p.i_y * 0.5;
+  		let d = p.tileSize*p.j_y * 0.5;
   
-  let inv = m_invert(a, b, c, d);
+  		let inv = p.m_invert(a, b, c, d);
   
-  return {
-    x: sX * inv.a + sY * inv.b,
-    y: sX * inv.c + sY * inv.d,
+ 		return {
+   	 	x: sX * inv.a + sY * inv.b,
+   		y: sX * inv.c + sY * inv.d,
   }
 }
+	
 
-
-function draw() {
-	background('grey');
-	//offset to center of sprite
-	translate(-tileSize/2, 0);
-	//offset to center of canvas
-	translate(width/2, top_offset);
-	//tile loop
-	for (let i = 0; i < tiles; i++) {
-		for (let j = 0; j < tiles; j++) { 
-		  //screen coordination obj
-		  let sCords = screen_cords(i,j);
-		  if(
-			Math.round(grid_cords(mouseX-width/2,mouseY-top_offset-tileSize/4).x)===i &&
-		    Math.round(grid_cords(mouseX-width/2,mouseY-top_offset-tileSize/4).y)===j){
-			  image(img,sCords.x,sCords.y-10,tileSize,tileSize);
-		  }
-		  else{
-			image(img,sCords.x,sCords.y,tileSize,tileSize);
+	p.draw = function() {
+		//p.background('grey');
+		//offset to center of sprite
+		p.translate(-p.tileSize/2, 0);
+		//offset to center of canvas
+		p.translate(p.width/2, p.top_offset);
+		//tile loop
+		for (let i = 0; i < p.tiles; i++) {
+			for (let j = 0; j < p.tiles; j++) { 
+			  //screen coordination obj
+			  let sCords = p.screen_cords(i,j);
+			  if(
+				Math.round(p.grid_cords(p.mouseX-p.width/2,p.mouseY-p.top_offset-p.tileSize/4).x)===i &&
+				Math.round(p.grid_cords(p.mouseX-p.width/2,p.mouseY-p.top_offset-p.tileSize/4).y)===j){
+				  p.image(p.img,sCords.x,sCords.y-10,p.tileSize,p.tileSize);
+			  }
+			  else{
+				p.image(p.img,sCords.x,sCords.y,p.tileSize,p.tileSize);
+			  }
+			}
 		  }
 		}
-	  }
-	//console.log(grid_cords(mouseX-width/2,mouseY-tileSize/4));
 	}
+
+let myp5 = new p5(sketch);
+
+
+
+
+
+
+
+
+
+
+
 	
 
