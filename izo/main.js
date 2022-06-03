@@ -1,5 +1,4 @@
 import sketch from "./sketch.js";
 
-new sketch(50,11,"third","hover");
-new sketch(50,11,"first","wave");
-new sketch(50,11,"second","midwave");
+new sketch(1400,1000,25,20,"first","midwave");
+
