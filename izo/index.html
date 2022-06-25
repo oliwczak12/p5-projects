@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="style.css">
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>izo</title>
 		<script src="libraries/p5.js"></script>
 		<!-- <script src="libraries/p5.sound.js"></script> -->
-		<script type="module" src="main.js"></script>
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-			}
-			canvas {
-				margin: auto;
-			}
-		</style>
+		<script src="cube.js"></script>
 	</head>
 	<body>
-		<div id="first"></div>
-		<div id="second"></div>
-		<div id="third"></div>
+		<div id="sketch-holder"></div>
+		<div id="inputs">
+			<input type="number" step="0.1" placeholder="speed" name="speed" id="speed" onchange="send_speed(this)">
+			<input type="number" step="1" placeholder="offset" name="offset" id="offset" onchange="send_offset(this)">
+		</div>
 	</body>
 </html>
